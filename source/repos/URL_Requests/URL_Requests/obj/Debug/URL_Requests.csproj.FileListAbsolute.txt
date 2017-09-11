@@ -1,0 +1,7 @@
+C:\Users\JOCHONCHON\source\repos\URL_Requests\URL_Requests\obj\Debug\URL_Requests.csprojResolveAssemblyReference.cache
+C:\Users\JOCHONCHON\source\repos\URL_Requests\URL_Requests\obj\Debug\URL_Requests.csproj.CoreCompileInputs.cache
+C:\Users\JOCHONCHON\source\repos\URL_Requests\URL_Requests\bin\Debug\URL_Requests.exe.config
+C:\Users\JOCHONCHON\source\repos\URL_Requests\URL_Requests\bin\Debug\URL_Requests.exe
+C:\Users\JOCHONCHON\source\repos\URL_Requests\URL_Requests\bin\Debug\URL_Requests.pdb
+C:\Users\JOCHONCHON\source\repos\URL_Requests\URL_Requests\obj\Debug\URL_Requests.exe
+C:\Users\JOCHONCHON\source\repos\URL_Requests\URL_Requests\obj\Debug\URL_Requests.pdb
