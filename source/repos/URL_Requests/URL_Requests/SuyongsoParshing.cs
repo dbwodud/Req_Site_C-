@@ -11,9 +11,7 @@ namespace URL_Requests
     {
         private string[] arr_Url = new string[20];
         private string[] sub_Url = new string[20];
-        private string site_Url;
-
-        public SuyongsoParshing(string url) => site_Url = url;
+        private string FileDir = "C:\\Users\\JOCHONCHON\\Pictures\\Saved Pictures\\test\\";
         public void print_sub_Url()
         {
             for(int i = 0; i < 20; i++)
@@ -21,9 +19,9 @@ namespace URL_Requests
                 Console.WriteLine(sub_Url[i]);
             }
         }
-        public StreamReader request_Site()
+        public StreamReader request_Site(string url_site)
         {
-            WebRequest req_Site = WebRequest.Create(site_Url);
+            WebRequest req_Site = WebRequest.Create(url_site);
             Stream objStream;
             objStream = req_Site.GetResponse().GetResponseStream();
 
@@ -32,7 +30,7 @@ namespace URL_Requests
             return objReader;
         }
 
-        public void print_Site(StreamReader objReader)
+        public void tag_find(StreamReader objReader,string find)
         {
             string sLine = "";
             int i = 0;
@@ -42,7 +40,7 @@ namespace URL_Requests
                 try
                 {
                     sLine = objReader.ReadLine();
-                    if (sLine.IndexOf("hx") > -1)
+                    if (sLine.IndexOf(find) > -1)
                     {
 
                         arr_Url[i] = sLine;
@@ -64,13 +62,13 @@ namespace URL_Requests
             }
         }
 
-        public void sub_Site()
+        public void sub_Site(int x,int y)
         {
-            for (int x = 0; x < 20; x++)
+            for (int i = 0; i < 20; i++)
             {
                 try
                 {
-                    sub_Url[x] = "https:" + arr_Url[x].Substring(33, 35);
+                    sub_Url[x] = "https:" + arr_Url[x].Substring(x, y);
                 }
                 catch (System.IndexOutOfRangeException)
                 {
@@ -78,5 +76,21 @@ namespace URL_Requests
                 }
             }
         }
+        public void req_batch(SuyongsoParshing x)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                x.request_Site(sub_Url[i]);
+            }
+        }
+        public void download_img(string img_Url)
+        {
+            WebClient client = new WebClient();
+            for(int i = 0; i < 10; i++)
+            {
+                client.DownloadFile(img_Url,(FileDir + i.ToString()));
+            }
+        }
+
     }
 }

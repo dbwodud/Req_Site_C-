@@ -9,17 +9,13 @@ namespace URL_Requests
 {
     class Program
     {
-        WebRequest Req_site(string url)
-        {
-            WebRequest GetUrl = WebRequest.Create(url);
-            return GetUrl;
-        }
         static void Main(string[] args)
         {
-            SuyongsoParshing site = new SuyongsoParshing("https://www.suyongso.com/anidong");
-            site.print_Site(site.request_Site());
-            site.sub_Site();
+            SuyongsoParshing site = new SuyongsoParshing();
+            site.tag_find(site.request_Site("https://www.suyongso.com/anidong"),"hx");
+            site.sub_Site(33,35);
             site.print_sub_Url();
+            site.req_batch(site);
 
 
         }
