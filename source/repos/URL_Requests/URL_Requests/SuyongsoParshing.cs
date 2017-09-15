@@ -9,16 +9,19 @@ namespace URL_Requests
 {
     public class SuyongsoParshing
     {
-        private string[] arr_Url = new string[20];
-        private string[] sub_Url = new string[20];
+
         private string FileDir = "C:\\Users\\JOCHONCHON\\Pictures\\Saved Pictures\\test\\";
+        private int file_name = 1;
+        private List<string> list_Url = new List<string>();
+        private List<string> sub_Url = new List<string>();
         public void print_sub_Url()
         {
-            for(int i = 0; i < 20; i++)
+            for (int i = 0; i < sub_Url.Count; i++)
             {
                 Console.WriteLine(sub_Url[i]);
             }
         }
+
         public StreamReader request_Site(string url_site)
         {
             WebRequest req_Site = WebRequest.Create(url_site);
@@ -30,10 +33,9 @@ namespace URL_Requests
             return objReader;
         }
 
-        public void tag_find(StreamReader objReader,string find)
+        public void Tag_find(StreamReader objReader, string find)
         {
             string sLine = "";
-            int i = 0;
 
             while (sLine != null)
             {
@@ -42,9 +44,7 @@ namespace URL_Requests
                     sLine = objReader.ReadLine();
                     if (sLine.IndexOf(find) > -1)
                     {
-
-                        arr_Url[i] = sLine;
-                        i++;
+                        list_Url.Add(sLine);
                     }
                     else
                     {
@@ -62,35 +62,49 @@ namespace URL_Requests
             }
         }
 
-        public void sub_Site(int x,int y)
+        public void sub_Site(int x, int y)
         {
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < list_Url.Count; i++)
             {
                 try
                 {
-                    sub_Url[x] = "https:" + arr_Url[x].Substring(x, y);
+                    sub_Url.Add("https:" + list_Url[i].Substring(x, y));
                 }
                 catch (System.IndexOutOfRangeException)
                 {
                     continue;
                 }
             }
+            list_Url.Clear();
         }
-        public void req_batch(SuyongsoParshing x)
-        {
-            for (int i = 0; i < 20; i++)
-            {
-                x.request_Site(sub_Url[i]);
-            }
-        }
+
         public void download_img(string img_Url)
         {
             WebClient client = new WebClient();
-            for(int i = 0; i < 10; i++)
+
+            client.DownloadFile(img_Url, (FileDir + file_name) + ".jpg");
+            file_name++;
+        }
+        public void batch_req(SuyongsoParshing main_class)
+        {
+            for (int i = 0; i < sub_Url.Count; i++)
             {
-                client.DownloadFile(img_Url,(FileDir + i.ToString()));
+                try
+                {
+                    main_class.Tag_find(main_class.request_Site(sub_Url[i]), "xe_content");
+                }
+                catch (System.UriFormatException)
+                {
+                    continue;
+                }
             }
         }
-
+        public void print_Url()
+        {
+            for(int i = 0; i < list_Url.Count; i++)
+            {
+                Console.WriteLine(list_Url[i]);
+            }
+        }
     }
 }
